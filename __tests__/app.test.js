@@ -43,13 +43,16 @@ describe('backend-express-template routes', () => {
 
     expect(res.status).toBe(200);
     // Do the opposite after calling delete route?
+    
     const deleteRes = await request(app).delete('/api/v1/users/');
     expect(deleteRes.status).toBe(404);
 
 
-    afterAll(() => {
-      pool.end();
-    });
+  });
+
+
+  afterAll(() => {
+    pool.end();
   });
 
 });
