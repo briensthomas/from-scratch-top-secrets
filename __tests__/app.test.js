@@ -20,6 +20,7 @@ const registerAndLogin = async (userProps = {}) => {
 
   const { email } = user;
   await agent.post('/api/v1/users/sessions').send({ email, password });
+  console.log('Log user here:', { user });
   return [agent, user];
 };
 
@@ -66,7 +67,7 @@ describe('backend-express-template routes', () => {
 
   it('#GET protected /secrets should return list of secrets for auth user', async () => {
     const [agent] = await registerAndLogin();
-    const res = await agent.get('/api/v1/users/secrets');
+    const res = await agent.get('/api/v1/secrets');
     expect(res.status).toBe(200);
   });
 
