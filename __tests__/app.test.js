@@ -26,7 +26,7 @@ describe('backend-express-template routes', () => {
     });
   });
 
-  it('sign in an existing user', async () => {
+  it('#POST sign in an existing user', async () => {
     await request(app).post('/api/v1/users/').send(fakeUser);
     const res = await request(app)
       .post('/api/v1/users/sessions')
