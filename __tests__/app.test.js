@@ -35,7 +35,21 @@ describe('backend-express-template routes', () => {
     expect(res.status).toBe(200);
   });
 
-  afterAll(() => {
-    pool.end();
+  it('#DELETE /sessions cookie', async () => {
+    await request(app).post('/api/v1/users/').send(fakeUser);
+    const res = await request(app)
+      .post('/api/v1/users/sessions')
+      .send({ email: 'test@example.com', password: '123456' });
+
+    expect(res.status).toBe(200);
+    // Do the opposite after calling delete route?
+    const deleteRes = await request(app).delete('/api/v1/users/');
+    expect(deleteRes.status).toBe(404);
+
+
+    afterAll(() => {
+      pool.end();
+    });
   });
+
 });
