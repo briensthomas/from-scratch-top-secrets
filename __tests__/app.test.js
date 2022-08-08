@@ -4,8 +4,8 @@ const request = require('supertest');
 const app = require('../lib/app');
 
 const fakeUser = {
-  firstName: 'Fake',
-  lastName: 'User',
+  first_name: 'Fake',
+  last_name: 'User',
   email: 'test@example.com',
   password: '123456'
 };
@@ -14,14 +14,14 @@ describe('backend-express-template routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
-  
+
   it('#POST creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(fakeUser);
-    const { firstName, lastName, email } = fakeUser;
+    const { first_name, last_name, email } = fakeUser;
     expect(res.body).toEqual({
       id: expect.any(String),
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       email
     });
   });
