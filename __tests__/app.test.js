@@ -63,6 +63,11 @@ describe('backend-express-template routes', () => {
     const [agent] = await registerAndLogin();
     const res = await agent.get('/api/v1/secrets');
     expect(res.status).toBe(200);
+    expect(res.body[0]).toEqual({
+      title: 'Julie\'s Secret',
+      description: 'Benny is a good boy',
+      created_at: expect.any(String)
+    });
   });
 
   it('#POST protected, auth users can add new secrets', async () => {
