@@ -47,17 +47,14 @@ describe('backend-express-template routes', () => {
   });
 
   it('#DELETE /sessions cookie', async () => {
-    await request(app).post('/api/v1/users/').send(fakeUser);
-    const res = await request(app)
-      .post('/api/v1/users/sessions')
-      .send({ email: 'test@example.com', password: '123456' });
-
+    const [agent] = await registerAndLogin();
+    const res = await agent.get('/api/v1/secrets');
     expect(res.status).toBe(200);
     // Do the opposite after calling delete route?
 
-    const deleteRes = await request(app).delete('/api/v1/users/');
-    console.log('Test console:', deleteRes);
-    expect(deleteRes.body).toEqual({ message: 'Signed out successfully!' });
+    await request(app).delete('/api/v1/users/');
+    const deleteRes = await request(app).get('/api/v1/secrets');
+    expect(deleteRes.status).toBe(401);
 
 
   });
@@ -68,7 +65,7 @@ describe('backend-express-template routes', () => {
     expect(res.status).toBe(200);
   });
 
-  it('#POST auth users can send new secrets', async () => {
+  it('#POST protected, auth users can add new secrets', async () => {
     const newSecret = {
       title: 'Brien\'s Secret',
       description: 'Sometimes I don\'t make my bed'
