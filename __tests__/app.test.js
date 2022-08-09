@@ -20,7 +20,6 @@ const registerAndLogin = async (userProps = {}) => {
 
   const { email } = user;
   await agent.post('/api/v1/users/sessions').send({ email, password });
-  console.log('Log user here:', { user });
   return [agent, user];
 };
 
@@ -31,11 +30,9 @@ describe('backend-express-template routes', () => {
 
   it('#POST creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(fakeUser);
-    const { first_name, last_name, email } = fakeUser;
+    const { email } = fakeUser;
     expect(res.body).toEqual({
       id: expect.any(String),
-      first_name,
-      last_name,
       email
     });
   });
