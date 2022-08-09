@@ -68,6 +68,22 @@ describe('backend-express-template routes', () => {
     expect(res.status).toBe(200);
   });
 
+  it('#POST auth users can send new secrets', async () => {
+    const newSecret = {
+      title: 'Brien\'s Secret',
+      description: 'Sometimes I don\'t make my bed'
+    };
+    const [agent] = await registerAndLogin();
+    const res = await agent.post('/api/v1/secrets').send(newSecret);
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      title: expect.any(String),
+      description: expect.any(String),
+      created_at: expect.anything()
+    });
+  });
+
 
   afterAll(() => {
     pool.end();
