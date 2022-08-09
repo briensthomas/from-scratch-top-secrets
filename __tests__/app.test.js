@@ -46,21 +46,21 @@ describe('backend-express-template routes', () => {
     expect(res.status).toBe(200);
   });
 
-  // it('#DELETE /sessions cookie', async () => {
-  //   await request(app).post('/api/v1/users/').send(fakeUser);
-  //   const res = await request(app)
-  //     .post('/api/v1/users/sessions')
-  //     .send({ email: 'test@example.com', password: '123456' });
+  it('#DELETE /sessions cookie', async () => {
+    await request(app).post('/api/v1/users/').send(fakeUser);
+    const res = await request(app)
+      .post('/api/v1/users/sessions')
+      .send({ email: 'test@example.com', password: '123456' });
 
-  //   expect(res.status).toBe(200);
-  //   // Do the opposite after calling delete route?
+    expect(res.status).toBe(200);
+    // Do the opposite after calling delete route?
 
-  //   const deleteRes = await request(app).delete('/api/v1/users/');
-  //   console.log('Test console:', deleteRes);
-  //   expect(deleteRes.body).toEqual({ success: true, message: 'Signed out successfully!' });
+    const deleteRes = await request(app).delete('/api/v1/users/');
+    console.log('Test console:', deleteRes);
+    expect(deleteRes.body).toEqual({ message: 'Signed out successfully!' });
 
 
-  // });
+  });
 
   it('#GET protected /secrets should return list of secrets for auth user', async () => {
     const [agent] = await registerAndLogin();
