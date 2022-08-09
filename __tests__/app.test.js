@@ -52,7 +52,9 @@ describe('backend-express-template routes', () => {
     expect(res.status).toBe(200);
     // Do the opposite after calling delete route?
     const deleteRes = await agent.delete('/api/v1/users/sessions');
-    expect(deleteRes.body.message).toEqual('Signed out successfully!');
+    expect(deleteRes.body).toEqual({
+      success: true,
+      message:'Signed out successfully!' });
 
     const getRes = await request(app).get('/api/v1/secrets');
     expect(getRes.status).toBe(401);
