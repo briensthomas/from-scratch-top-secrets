@@ -51,12 +51,11 @@ describe('backend-express-template routes', () => {
     const res = await agent.get('/api/v1/secrets');
     expect(res.status).toBe(200);
     // Do the opposite after calling delete route?
+    const deleteRes = await agent.delete('/api/v1/users/sessions');
+    expect(deleteRes.body.message).toEqual('Signed out successfully!');
 
-    await request(app).delete('/api/v1/users/');
-    const deleteRes = await request(app).get('/api/v1/secrets');
-    expect(deleteRes.status).toBe(401);
-
-
+    const getRes = await request(app).get('/api/v1/secrets');
+    expect(getRes.status).toBe(401);
   });
 
   it('#GET protected /secrets should return list of secrets for auth user', async () => {
