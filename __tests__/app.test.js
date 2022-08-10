@@ -7,7 +7,7 @@ const UserService = require('../lib/services/UserService');
 const fakeUser = {
   first_name: 'Fake',
   last_name: 'User',
-  email: 'test@example.com',
+  email: 'test@defense.gov',
   password: '123456'
 };
 
@@ -41,7 +41,7 @@ describe('backend-express-template routes', () => {
     await request(app).post('/api/v1/users/').send(fakeUser);
     const res = await request(app)
       .post('/api/v1/users/sessions')
-      .send({ email: 'test@example.com', password: '123456' });
+      .send({ email: 'test@defense.gov', password: '123456' });
 
     expect(res.status).toBe(200);
   });
